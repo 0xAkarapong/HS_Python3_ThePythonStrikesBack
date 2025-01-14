@@ -1,4 +1,5 @@
 import pygame
+import random
 
 class Circle:
     def __init__(self, radius: float, x: int, y: int, screen_width: int, screen_height: int):
@@ -28,7 +29,9 @@ def main():
     height = 600
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption("Flying Circle")
-    circle = Circle(20, 100, 100, width, height)
+    circle_list = []
+    for _ in range(10):
+        circle_list.append(Circle(20, random.randint(1, width), random.randint(1, height), width, height))
     running = True
     clock = pygame.time.Clock()
     while running:
@@ -36,8 +39,9 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
         screen.fill((0, 0, 0))
-        circle.move()
-        circle.draw(screen)
+        for circle in circle_list:
+            circle.move()
+            circle.draw(screen)
         pygame.display.flip()
         clock.tick(60)
     pygame.quit()
